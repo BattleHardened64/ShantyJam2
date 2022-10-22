@@ -3,6 +3,7 @@ from playerinfo import Player
 #from enemyinfo import Enemy
 #from houseinfo import House
 import pygame
+import sys
 
 
 #window size in pixels
@@ -47,6 +48,17 @@ while run:
     pygame.time.delay(10)
     window.fill((255, 170, 164))
     keys = pygame.key.get_pressed()
+    #Press X to quit!
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == ord('x'):
+                pygame.quit()
+            try:
+                sys.exit()
+            finally:
+                main = False
 
     if keys[pygame.K_w]:
         player.control(0,speed)
@@ -59,7 +71,6 @@ while run:
 
     pygame.display.update()
     clock.tick(30)
-
 
 
 
