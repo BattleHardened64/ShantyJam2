@@ -1,0 +1,1 @@
+# The house class will go here.
