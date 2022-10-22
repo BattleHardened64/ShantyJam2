@@ -41,7 +41,10 @@ speed = 5  #pixels per second?
 
 #Create our player
 player = Player()
-
+player.rect.x = 0  # go to x
+player.rect.y = 0  # go to y
+player_list = pygame.sprite.Group()
+player_list.add(player)
 
 #MAIN GAME LOOP
 while run:
@@ -50,15 +53,12 @@ while run:
     keys = pygame.key.get_pressed()
     #Press X to quit!
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == ord('x'):
-                pygame.quit()
+        if event.type == pygame.K_x:
+            pygame.quit()
             try:
                 sys.exit()
             finally:
-                main = False
+                run = False
 
     if keys[pygame.K_w]:
         player.control(0,speed)
@@ -70,8 +70,9 @@ while run:
         player.control(-speed, 0)
 
     pygame.display.update()
-    clock.tick(30)
-
+    clock.tick(4)
+    player_list.draw(window)
+    pygame.display.flip()
 
 
 
