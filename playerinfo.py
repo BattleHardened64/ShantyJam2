@@ -1,5 +1,4 @@
 # The player class will go here.
-from symbol import subscript
 import pygame
 
 
@@ -11,9 +10,9 @@ class Player(pygame.sprite.Sprite):
         self.images = []
         self.movex = 0 # move along X
         self.movey = 0 # move along Y
-        img = pygame.image.load('FireWizard.png').convert_alpha()
+        img = pygame.image.load('assets\FireWizard.png').convert_alpha()
         self.images.append(img)
-        self.image - self.images[0]
+        self.image = self.images[0]
         #self.surf = pygame.image.load('FireWizard.png').convert_alpha()
         self.rect = self.image.get_rect()
 

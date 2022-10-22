@@ -18,7 +18,7 @@ enemy_count = 50
 
 pygame.init()
 
-window = pygame.display.set_mode(size=[WIDTH, HEIGHT])
+window = pygame.display.set_mode((WIDTH, HEIGHT))
 
 clock = pygame.time.Clock()
 """
