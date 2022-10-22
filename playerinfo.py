@@ -1,4 +1,5 @@
 # The player class will go here.
+from symbol import subscript
 import pygame
 
 
@@ -38,3 +39,4 @@ class Player(pygame.sprite.Sprite):
     def control(self,x,y):
         self.movex += x
         self.movey += y
+        
