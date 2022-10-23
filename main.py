@@ -46,14 +46,20 @@ player.rect.y = 0  # go to y
 player_list = pygame.sprite.Group()
 player_list.add(player)
 
+#Create Fireball group
+fireball_group = pygame.sprite.Group()
+
+
+
+
 #MAIN GAME LOOP
 while run:
     pygame.time.delay(10)
-    window.fill((255, 170, 164))
+    window.fill((100, 170, 164))
     
     #Press X to quit!
     for event in pygame.event.get():
-        if event.type == pygame.K_x:
+        if event.type == pygame.QUIT:
             pygame.quit()
             try:
                 sys.exit()
@@ -75,14 +81,16 @@ while run:
             if event.key == pygame.K_d:
                 player.movex = speed
                 player.updatex()
-            
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            fireball_group.add(player.createfireball())
 
 
     pygame.display.update()
-    clock.tick()
     player_list.draw(window)
+    fireball_group.draw(window)
+    fireball_group.update()
     pygame.display.flip()
-
+    clock.tick()
 
 
 
