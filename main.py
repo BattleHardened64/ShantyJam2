@@ -27,6 +27,8 @@ pygame.init()
 
 sfont = pygame.font.SysFont("Contrail One", 22)
 
+pfont = pygame.font.SysFont("Contrail One", 115)
+
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
 clock = pygame.time.Clock()
@@ -67,6 +69,8 @@ def create_enemy() -> Enemy:
     if enemy.rect.x > 500 and enemy.rect.x < 1000:
         enemy.rect.x += 500
     enemy.rect.y = random.randrange(0, 1000)
+    if enemy.rect.x > 1000:
+        enemy.image = pygame.transform.flip(enemy.image, True, False)
     return enemy
 
 # Displays the score
@@ -74,7 +78,49 @@ def displayScore(score):
     sVal = sfont.render("Score: " + str(score) + (" " * 20), True, White)
     window.blit(sVal, [0, 0])
 
+def startScreen():
+    bg_img = pygame.image.load('assets/StartScreen.png')
+    bg_img = pygame.transform.scale(bg_img,(WIDTH,HEIGHT))
+
+    running = True
+    while running:
+        window.blit(bg_img,(0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                try:
+                    sys.exit()
+                finally:
+                    running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    running = False
+        pygame.display.update()
+
+
+def pause():
+    run2 = True
+    while(run2 == True):
+        pmsg = pfont.render("PAUSED", True, White)
+        textRect = pmsg.get_rect()
+        textRect.center = (750, 400)
+        window.blit(pmsg, textRect)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                try:
+                    sys.exit()
+                finally:
+                    run = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    run2 = False
+                    return
+
 def main():
+    startScreen()
+
     #enemy sprite
     SPAWNENEMY = pygame.USEREVENT
     enemy_interval = 1500
@@ -103,9 +149,16 @@ def main():
     run = True
     #MAIN GAME LOOP
     while run:
-
         pygame.time.delay(10)
-        window.fill((100, 170, 164))
+        bg_img = pygame.image.load('assets/Background.png')
+        bg_img = pygame.transform.scale(bg_img,(WIDTH,HEIGHT))
+        window.blit(bg_img,(0,0))
+
+        smsg = sfont.render("Score: " + str(score), True, White)
+        hmsg = sfont.render("House HP: " + str(house.health), True, White)
+        window.blit(smsg, (0, 0))
+        window.blit(hmsg, (100, 0))
+
         pygame.display.update()
 
 
@@ -119,6 +172,9 @@ def main():
                 finally:
                     run = False
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    pause()
+                
                 if event.key == pygame.K_w:
                     player.movey = -speed
                     player.updatey()
@@ -134,6 +190,7 @@ def main():
                 if event.key == pygame.K_d:
                     player.movex = speed
                     player.updatex()
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 fireball_group.add(player.createfireball())
             if event.type == SPAWNENEMY:
@@ -144,6 +201,13 @@ def main():
 
         house_list.update()
         house_list.draw(window)
+        pygame.draw.rect(window, (0,255,0), pygame.Rect(650, 250, 200, 20))
+        i=100
+        j=0
+        while i > house.health:
+            i-=10
+            j+=1
+        pygame.draw.rect(window, (255,0,0), pygame.Rect((850-j*20), 250,j*20, 20))
         player_list.draw(window)
         enemy_group.draw(window)
         fireball_group.draw(window)
