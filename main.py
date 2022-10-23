@@ -5,6 +5,7 @@ from houseinfo import House
 import pygame
 import sys
 import random
+from pygame import mixer
 
 #window size in pixels
 WIDTH = 1500
@@ -119,6 +120,7 @@ def pause():
                     return
 
 def main():
+
     startScreen()
 
     #enemy sprite
