@@ -7,7 +7,7 @@ import sys
 
 
 #window size in pixels
-WIDTH = 800
+WIDTH = 1000
 HEIGHT = 800
 
 #Enemy Spawn Rate
@@ -35,7 +35,7 @@ run = True
 #STATISTICS
 score = 0 
 health = 3 #Max of 5
-speed = 5  #pixels per second?
+speed = 25  #pixels per second?
 
 
 
@@ -46,34 +46,51 @@ player.rect.y = 0  # go to y
 player_list = pygame.sprite.Group()
 player_list.add(player)
 
+#Create Fireball group
+fireball_group = pygame.sprite.Group()
+
+
+
+
 #MAIN GAME LOOP
 while run:
     pygame.time.delay(10)
-    window.fill((255, 170, 164))
-    keys = pygame.key.get_pressed()
+    window.fill((100, 170, 164))
+    
     #Press X to quit!
     for event in pygame.event.get():
-        if event.type == pygame.K_x:
+        if event.type == pygame.QUIT:
             pygame.quit()
             try:
                 sys.exit()
             finally:
                 run = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                player.movey = -speed
+                player.updatey()
 
-    if keys[pygame.K_w]:
-        player.control(0,speed)
-    if keys[pygame.K_a]:
-        player.control(speed, 0)
-    if keys[pygame.K_s]:
-        player.control(0,-speed)
-    if keys[pygame.K_d]:
-        player.control(-speed, 0)
+            if event.key == pygame.K_a:
+                player.movex = -speed
+                player.updatex()
+
+            if event.key == pygame.K_s:
+                player.movey = speed
+                player.updatey()
+
+            if event.key == pygame.K_d:
+                player.movex = speed
+                player.updatex()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            fireball_group.add(player.createfireball())
+
 
     pygame.display.update()
-    clock.tick(4)
     player_list.draw(window)
+    fireball_group.draw(window)
+    fireball_group.update()
     pygame.display.flip()
-
+    clock.tick()
 
 
 
