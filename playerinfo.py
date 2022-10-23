@@ -34,6 +34,9 @@ class Player(pygame.sprite.Sprite):
         self.hitbox = (self.rect.x, self.rect.y, 50, 100)
 
     def createfireball(self):
-        return fireball(self.rect.x+50,self.rect.y+25)
+        if self.direction == "RIGHT":
+            return fireball(self.rect.x+50,self.rect.y+25, True)
+        else:
+            return fireball(self.rect.x, self.rect.y+25, False)
 
 
