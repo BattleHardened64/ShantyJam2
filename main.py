@@ -79,7 +79,6 @@ def main():
 
     #Create Fireball group
     fireball_group = pygame.sprite.Group()
-
     run = True
     #MAIN GAME LOOP
     while run:

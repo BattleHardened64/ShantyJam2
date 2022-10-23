@@ -1,10 +1,11 @@
 #This is where the fireball class will be located
+from xmlrpc.client import Boolean
 import pygame
 
 
 class fireball(pygame.sprite.Sprite):
 
-    def __init__(self, x, y) -> None:
+    def __init__(self, x, y,facing) -> None:
         super().__init__()
         self.images = []
         img = pygame.image.load('assets\Fireball.png').convert_alpha()
@@ -12,12 +13,21 @@ class fireball(pygame.sprite.Sprite):
         self.image = self.images[0]
         self.rect = self.image.get_rect(center = (x,y))
         self.radius = 12.5
+        self.facing : Boolean
+        self.facing = facing
+        self.speed = 5
     
     def update(self):
-        self.rect.x +=5
+        if self.facing == True:
+            self.rect.x += self.speed
+            if self.rect.x >= 1500:
+                self.kill()
 
-        if self.rect.x >= 1500:
-            self.kill()
+        elif self.facing == False:
+            self.rect.x += self.speed * (-1)
+            if self.rect.x <= -1500:
+                self.kill()
+
 
 
 
