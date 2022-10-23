@@ -21,5 +21,6 @@ class House(pygame.sprite.Sprite):
             self.isDead = True
     def heal_damage(self, h):
         self.health += h
+    
 
 #houseTest = House()

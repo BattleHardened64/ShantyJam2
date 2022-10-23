@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.image = self.images[0]
         #self.surf = pygame.image.load('assets\FireWizard.png').convert_alpha()
         self.rect = self.image.get_rect()
-        self.hitbox = (self.movex, self.movey, 50, 100)
+        self.hitbox = (self.rect.x, self.rect.y, 50, 100)
 
     def updatex(self):
         if (self.movex < 0 and self.direction == "RIGHT"):

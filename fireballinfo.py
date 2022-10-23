@@ -15,16 +15,19 @@ class fireball(pygame.sprite.Sprite):
         self.radius = 12.5
         self.facing : Boolean
         self.facing = facing
-        self.speed = 5
+        self.speed = 20
+        fireball.hitbox = (self.rect.x, self.rect.y, 25, 25)
     
     def update(self):
         if self.facing == True:
             self.rect.x += self.speed
+            self.hitbox = (self.rect.x, self.rect.y, 25, 25)
             if self.rect.x >= 1500:
                 self.kill()
 
         elif self.facing == False:
             self.rect.x += self.speed * (-1)
+            self.hitbox = (self.rect.x, self.rect.y, 25, 25)
             if self.rect.x <= -1500:
                 self.kill()
 
