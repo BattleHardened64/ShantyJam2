@@ -11,11 +11,12 @@ class fireball(pygame.sprite.Sprite):
         self.images.append(img)
         self.image = self.images[0]
         self.rect = self.image.get_rect(center = (x,y))
+        self.radius = 12.5
     
     def update(self):
         self.rect.x +=5
 
-        if self.rect.x >= 1000:
+        if self.rect.x >= 1500:
             self.kill()
 
 

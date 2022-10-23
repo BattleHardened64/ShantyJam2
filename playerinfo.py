@@ -17,6 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.image = self.images[0]
         #self.surf = pygame.image.load('assets\FireWizard.png').convert_alpha()
         self.rect = self.image.get_rect()
+        self.hitbox = (self.movex, self.movey, 50, 100)
 
     def updatex(self):
         if (self.movex < 0 and self.direction == "RIGHT"):
@@ -26,9 +27,11 @@ class Player(pygame.sprite.Sprite):
             self.direction = "RIGHT"
             self.image = pygame.transform.flip(self.image, True, False)
         self.rect.x = self.rect.x + self.movex
+        self.hitbox = (self.rect.x, self.rect.y, 50, 100)
 
     def updatey(self):
         self.rect.y = self.rect.y + self.movey
+        self.hitbox = (self.rect.x, self.rect.y, 50, 100)
 
     def createfireball(self):
         return fireball(self.rect.x+50,self.rect.y+25)
