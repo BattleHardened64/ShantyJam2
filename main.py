@@ -80,7 +80,7 @@ def displayScore(score):
     window.blit(sVal, [0, 0])
 
 def startScreen():
-    bg_img = pygame.image.load('assets/StartScreen.png')
+    bg_img = pygame.image.load('StartScreen.png')
     bg_img = pygame.transform.scale(bg_img,(WIDTH,HEIGHT))
 
     running = True
@@ -152,7 +152,7 @@ def main():
     #MAIN GAME LOOP
     while run:
         pygame.time.delay(10)
-        bg_img = pygame.image.load('assets/Background.png')
+        bg_img = pygame.image.load('Background.png')
         bg_img = pygame.transform.scale(bg_img,(WIDTH,HEIGHT))
         window.blit(bg_img,(0,0))
 
